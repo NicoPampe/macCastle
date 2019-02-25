@@ -12,4 +12,5 @@ done
 
 brew cask install --appdir="/Applications" spotify
 brew cask install --appdir="/Applications" discord
+brew cask install --appdir="/Applications" twitch 
 

@@ -13,7 +13,8 @@ eval $(thefuck --alias)
 alias gp='git pull origin $parse_git_branch && git push origin $parse_git_branch'
 alias bs='. ~/.bash_profile'
 alias cr='clear'
-alias kt='source ~/foxden-infrastructure/k8s/scripts/ktools.sh'
+alias kt='source ~/foxden-infrastructure/k8s/scripts/ktools.sh -p'
+alias nodeInstallClean='rm -rf node_modules/ && npm install'
 
 export HOMESHICK_DIR=/usr/local/opt/homeshick
 source "/usr/local/opt/homeshick/homeshick.sh"
@@ -30,7 +31,7 @@ source $(brew --prefix nvm)/nvm.sh
 # Passwords
 source ~/.keys/keys
 
-aws() {
+aws_swtich() {
 	if [ -z $1 ]; then
 		echo "Usage: aws <ecovate|foxden>"
 		return 1
@@ -119,8 +120,11 @@ cob() {
 }
 
 # finally, set up any last settings
-aws foxden
+aws_swtich foxden
 kt
 
 # TODO: vault
 # complete -C /Applications/vault vault
+
+# Finally.... whats on my list?
+todolist list

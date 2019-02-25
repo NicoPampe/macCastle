@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/Users/nicholas.pampe/stanza.io/.git'
 let g:netrw_dirhist_2='/Users/nicholas.pampe/stanza.io/.git/hooks'
 let g:netrw_dirhist_3='/Users/nicholas.pampe/.ivy2'
@@ -8,3 +8,4 @@ let g:netrw_dirhist_5='karma-28957508'
 let g:netrw_dirhist_6='/Users/nicholas.pampe/ios-foxden-pod/_Pods.xcodeproj'
 let g:netrw_dirhist_7='/Users/nicholas.pampe/.git_template/hooks'
 let g:netrw_dirhist_8='/Users/nicholas.pampe/.vim/vim-colorschemes'
+let g:netrw_dirhist_9='/Users/nicholas.pampe/kazooHack/.git'

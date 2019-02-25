@@ -9,7 +9,6 @@ CASK_TOOLS=(
     iterm2
     #google-chrome
     docker
-    thefuck
 )
 
 for i in ${CASK_TOOLS[@]}; do
@@ -18,14 +17,23 @@ done
 
 TOOLS=(
     docker-machine
+    watchman
+    todolist
+    grep
+    thefuck
+    jq
 )
 
 for i in ${TOOLS[@]}; do
     brew install ${i}
 done
 
-# Set defaults 
+# Global node modules
+npm install -g wml
+
+# Set defaults and PATH 
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
+PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 
 # Addition settings
 # Atom -- sublime test's features
