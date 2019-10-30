@@ -29,7 +29,9 @@ for i in ${TOOLS[@]}; do
 done
 
 # Global node modules
+## https://www.npmjs.com/package/wml
 npm install -g wml
+
 
 # Set defaults and PATH 
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE

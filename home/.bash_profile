@@ -3,18 +3,15 @@ if [ -f ~/.git-completion.bash ]; then
 fi
 
 # Terminal settings
-alias gs='git status'
 g() { "$(which git)" "$@" ;}
-alias lint="git status | sed -n -e 's%^.*modified:   %./%p' | grep '.php$' | xargs -n1 php -l"
 export PATH=~/bin:$PATH
-# TODO: get vault set up
-# export PATH="$PATH:/Users/nicholas.pampe/Documents/vault"
+PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 eval $(thefuck --alias)
+alias gs='git status'
 alias gp='git pull origin $parse_git_branch && git push origin $parse_git_branch'
 alias bs='. ~/.bash_profile'
 alias cr='clear'
-alias kt='source ~/foxden-infrastructure/k8s/scripts/ktools.sh -p'
-alias nodeInstallClean='rm -rf node_modules/ && npm install'
+alias nodeInstallClean='git checkout -- npm-shrinkwrap.json || true && rm -rf node_modules/ && nvm use && npm install'
 
 export HOMESHICK_DIR=/usr/local/opt/homeshick
 source "/usr/local/opt/homeshick/homeshick.sh"
@@ -46,6 +43,10 @@ aws_swtich() {
 	fi
 }
 
+# make sure they are unset first
+unset SAUCE_USERNAME
+unset SAUCE_ACCESS_KEY
+
 sauce() {
 	if [ -z $1 ]; then
 		echo "Usage: sauce <bool for export SAUCE>"
@@ -53,8 +54,8 @@ sauce() {
 	fi
 
 	if $1; then
-		export SAUCE_USERNAME
-		export SAUCE_ACCESS_KEY
+		export SAUCE_USERNAME=$SAUCE_USERNAME_SAVED
+		export SAUCE_ACCESS_KEY=$SAUCE_ACCESS_KEY_SAVED
 		echo "Set the SAUCE info"
 	else
 		unset SAUCE_USERNAME
@@ -123,8 +124,6 @@ cob() {
 aws_swtich foxden
 kt
 
-# TODO: vault
-# complete -C /Applications/vault vault
-
 # Finally.... whats on my list?
 todolist list
+export HOMEBREW_GITHUB_API_TOKEN=1743188b08d72763316c5aeae08491593cdb957c
