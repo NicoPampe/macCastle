@@ -18,7 +18,7 @@ done
 TOOLS=(
     docker-machine
     watchman
-    todolist
+    ultralist
     grep
     thefuck
     jq

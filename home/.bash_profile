@@ -12,11 +12,10 @@ alias gp='git pull origin $parse_git_branch && git push origin $parse_git_branch
 alias bs='. ~/.bash_profile'
 alias cr='clear'
 alias nodeInstallClean='git checkout -- npm-shrinkwrap.json || true && rm -rf node_modules/ && nvm use && npm install'
-
-# alias kt='source ~/foxden-infrastructure/k8s/scripts/ktools.sh -p'
+alias updateGlobalGitIgnore='git config --global core.excludesfile ~/.gitignore_global'
 
 export HOMESHICK_DIR=/usr/local/opt/homeshick
-source "/usr/local/opt/homeshick/homeshick.sh"
+source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 source "$HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash"
 
 export NVM_DIR=~/.nvm
@@ -24,8 +23,15 @@ source $(brew --prefix nvm)/nvm.sh
 
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
+export HOMEBREW_GITHUB_API_TOKEN=$HOMEBREW_GITHUB_API_TOKEN
+
 # Make the termial pretty. Probably a better option
-# export PS1="\[\e[4;33m[\u@\h \W]\$ \e[m\] "
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+# nvm
+nvm use 12.13.0
 
 # Passwords
 source ~/.keys/keys
@@ -42,52 +48,6 @@ aws_swtich() {
 	elif [ "$1" == "ecovate" ]; then
 		export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_ECOVATE
 		export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_ECOVATE
-	fi
-}
-
-# make sure they are unset first
-unset SAUCE_USERNAME
-unset SAUCE_ACCESS_KEY
-
-sauce() {
-	if [ -z $1 ]; then
-		echo "Usage: sauce <bool for export SAUCE>"
-		return 1
-	fi
-
-	if $1; then
-		export SAUCE_USERNAME=$SAUCE_USERNAME_SAVED
-		export SAUCE_ACCESS_KEY=$SAUCE_ACCESS_KEY_SAVED
-		echo "Set the SAUCE info"
-	else
-		unset SAUCE_USERNAME
-		unset SAUCE_ACCESS_KEY
-		echo "Unset SAUCE info. Will run locally"
-	fi
-}
-
-# k8s
-cluster() {
-	if [ -z $1 ]; then
-		echo "Usage: cluster <number>"
-		return 1
-	fi
-
-	aws ecovate
-	if [ "$1" == "dam" ]; then
-		echo "Using the dam credentials"
-		export KOPS_NAME="dam.cluster.foxden.io"
-		export KOPS_STATE_STORE="s3://foxden-k8s-cluster-state"
-		kops export kubecfg --name $KOPS_NAME
-		kubectl config use-context $KOPS_NAME
-		kubectl config set-context $(kubectl config current-context) --namespace=foxden
-	elif [ "$1" == "hive" ]; then
-		echo "Using the hive credentials"
-		export KOPS_NAME="hive.cluster.foxden.io"
-		export KOPS_STATE_STORE="s3://foxden-k8s-cluster-state"
-		kops export kubecfg --name $KOPS_NAME
-		kubectl config use-context $KOPS_NAME
-		kubectl config set-context $(kubectl config current-context) --namespace=foxden
 	fi
 }
 
@@ -122,10 +82,20 @@ cob() {
   g checkout $trimmedBranch
 }
 
+# Java alias
+alias j9="export JAVA_HOME=`/usr/libexec/java_home -v 9`; java -version"
+alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
+
+# set up Ombud dirs
+export OMBUD_PLATFORM="/Users/nicholas.pampe/ombud"
+export PATH="$PATH:$OMBUD_PLATFORM/ops/scripts"
+
 # finally, set up any last settings
-aws_swtich foxden
-kt
 
 # Finally.... whats on my list?
-todolist list
-export HOMEBREW_GITHUB_API_TOKEN=$HOMEBREW_GITHUB_API_TOKEN
+ultralist list
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/nicholas.pampe/.sdkman"
+
+[[ -s "/Users/nicholas.pampe/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/nicholas.pampe/.sdkman/bin/sdkman-init.sh"
