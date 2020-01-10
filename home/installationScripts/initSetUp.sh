@@ -11,6 +11,7 @@ TOOLS=(
     node
     wget
     bash-completion
+    homeshick
 )
 
 for i in ${TOOLS[@]}; do
