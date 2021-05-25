@@ -15,7 +15,7 @@ CASK_TOOLS=(
 )
 
 for i in ${CASK_TOOLS[@]}; do
-    brew cask install ${i}
+    brew install --cask ${i}
 done
 
 TOOLS=(
