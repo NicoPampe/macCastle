@@ -4,11 +4,14 @@
 # The tools are typically work related.
 
 CASK_TOOLS=(
-    atom
+    #atom
+    vscode
     slack
     iterm2
     #google-chrome
     docker
+    keepassxc
+    spectacle
 )
 
 for i in ${CASK_TOOLS[@]}; do
@@ -17,9 +20,9 @@ done
 
 TOOLS=(
     docker-machine
-    watchman
-    ultralist
-    grep
+    #watchman
+    #ultralist
+    #grep
     thefuck
     jq
 )
